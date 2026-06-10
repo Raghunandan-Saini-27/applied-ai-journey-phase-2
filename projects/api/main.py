@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database.db import get_all_jobs,search_jobs_by_location,search_jobs_by_title
-from api.services import get_ranked_jobs,get_ranked_jobs_hybrid,get_filtered_ranked_jobs,initialize_vectors,refresh_vectors
+from api.services import smart_search,get_ranked_jobs_by_keyword,get_ranked_jobs_by_location_and_keyword_hybrid_score,get_ranked_jobs_by_keyword_hybrid_score,initialize_vectors,refresh_vectors
 
 app=FastAPI()
 
@@ -27,7 +27,7 @@ def jobs(page: int=1,limit: int=10):
 
 @app.get("/jobs/search")
 def jobs_search(keyword: str,location: str):
-    return {"jobs":get_filtered_ranked_jobs(keyword,location)}
+    return {"jobs":get_ranked_jobs_by_location_and_keyword_hybrid_score(keyword,location)}
 
 @app.get("/jobs/location")
 def jobs_search_by_location(location: str):
@@ -35,13 +35,17 @@ def jobs_search_by_location(location: str):
 
 @app.get("/jobs/ranked")
 def ranked_jobs(keyword : str):
-    return get_ranked_jobs(keyword)
+    return get_ranked_jobs_by_keyword(keyword)
 
 @app.get("/jobs/ranked-ml")
 def ranked_ml_jobs(keyword:str):
-     return get_ranked_jobs_hybrid(keyword)
+     return get_ranked_jobs_by_keyword_hybrid_score(keyword)
 
 @app.post("/jobs/refresh")
 def refresh():
      refresh_vectors()
      return {"message":"Vectors refreshed successfully."}
+
+@app.get("/jobs/smart-search")
+def jobs_by_query(query:str):
+     return smart_search(query)

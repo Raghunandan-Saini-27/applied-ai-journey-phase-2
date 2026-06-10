@@ -51,10 +51,25 @@ def initialize_vectors():
 def refresh_vectors():
     initialize_vectors()
 
-def get_ranked_jobs(keyword: str):
+def get_jobs_by_location(location: str):
     global job_cache
     job_copy=[job.copy() for job in job_cache]
-    keyword=clean_text(keyword)
+    location=clean_text(location)
+    result=[]
+
+    if not location:
+        return result
+    
+    for job in job_copy:
+            if location in clean_text(job["location"]):
+                result.append(job)
+
+    return result[:10]
+
+def get_ranked_jobs_by_keyword(keyword: str):
+    global job_cache
+    job_copy=[job.copy() for job in job_cache]
+    keyword=clean_text(keyword).split()
     result = []
     
     if not keyword:
@@ -71,7 +86,7 @@ def get_ranked_jobs(keyword: str):
 
     return result[:10]
 
-def get_ranked_jobs_hybrid(keyword:str):
+def get_ranked_jobs_by_keyword_hybrid_score(keyword:str):
     global vectorizer, job_vectors, job_cache
 
     keyword=clean_text(keyword)
@@ -101,7 +116,7 @@ def get_ranked_jobs_hybrid(keyword:str):
 
     return result[:10]
 
-def get_filtered_ranked_jobs(keyword:str,location:str):
+def get_ranked_jobs_by_location_and_keyword_hybrid_score(keyword:str,location:str):
     global job_cache,job_vectors
 
     keyword=clean_text(keyword)
@@ -137,3 +152,47 @@ def get_filtered_ranked_jobs(keyword:str,location:str):
     result.sort(key=lambda x: x["score"], reverse=True)
 
     return result[:10]
+
+def parse_query(query:str):
+    query=clean_text(query)
+    KNOWN_LOCATIONS=["aa","ap","ae"]
+    keywords=[]
+    location=None
+
+    words=query.split()
+    for word in words:
+        if word in KNOWN_LOCATIONS:
+            location=word
+
+        else:
+            keywords.append(word)
+
+    parsed_query={"keywords":keywords,
+                  "location":location}
+
+    return parsed_query
+
+def smart_search(query:str):
+    parsed=parse_query(query)
+    keywords=parsed["keywords"]
+    location=parsed["location"]
+    keywords=" ".join(keywords)
+    
+    if location is not None :
+        if keywords!="":
+            result=get_ranked_jobs_by_location_and_keyword_hybrid_score(keywords,location)
+            return result
+        
+        else :
+            result=get_jobs_by_location(location)
+            return result
+            
+
+    else :
+        if keywords!="":
+            result=get_ranked_jobs_by_keyword_hybrid_score(keywords)
+            return result
+        
+        else :
+            return {"error":"Please enter a valid query."}
+
