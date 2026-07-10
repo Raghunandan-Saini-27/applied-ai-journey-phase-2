@@ -42,7 +42,7 @@ def initialize_vectors():
 
     MAX_FEATURES=500
     global vectorizer,job_vectors,job_cache
-    vectorizer=TfidfVectorizer(stop_words="english",max_features=MAX_FEATURES,min_df=2)
+    vectorizer=TfidfVectorizer(stop_words="english",max_features=MAX_FEATURES,min_df=1,max_df=3)
     vectorizer.fit(jobs_text)
 
     job_vectors=vectorizer.transform(jobs_text)
