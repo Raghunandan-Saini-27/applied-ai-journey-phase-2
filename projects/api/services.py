@@ -36,7 +36,7 @@ def initialize_vectors():
     jobs=get_all_jobs()
     jobs_text=[]
     for job in jobs:
-        raw_text=f"{job['title']} {job['company']} {job['location']}"
+        raw_text=f"{job['title']} {job['company']} {job['location']} {job['description']}"
         cleaned_text=clean_text(raw_text)
         jobs_text.append(cleaned_text)
 
