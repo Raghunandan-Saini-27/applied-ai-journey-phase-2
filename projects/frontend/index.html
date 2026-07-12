@@ -10,26 +10,30 @@
 
 	<body>
 		<h1>
-			<center>Explore your desired job and get hired today.</center>
+			Explore your desired job and get hired today.
 		</h1>
-		<div>
+		<div class='search'>
 			<form>
 				<input>
 				<button>
 				Search
 				</button>
 			</form>
-			<h2> Search Results <!--React will generate multiple job cards here-->
+			<h2> Search Results... <!--React will generate multiple job cards here-->
 			</h2>
 		</div>
 
-		<div> 
-			<h3>Python Developer</h3>
+		<div class="job-card"> 
+			<div class="job-header" >
+				<h3>Python Developer</h3>
+				<button>Apply</button>
+			</div>
+			
 			<p>Google</p>
 			<p>Remote</p>
 			<p>Looking for a Python developer with FastAPI knowledge.</p>
-			<button>Apply</button>
+			
 		</div>
-		
+		<script src="script.js"></script>
 	</body>
 </html>
