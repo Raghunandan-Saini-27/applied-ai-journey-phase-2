@@ -46,3 +46,11 @@ transition: 0.25s;
 }
 
 input:focus{background-color: #95affc;}
+
+.message{
+	width: 300px;
+	text-align:right;
+	transition:0.25s;
+	text-shadow: grey 2.5px;
+	box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+}
