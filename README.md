@@ -4,16 +4,6 @@ This repository contains my daily progress towards becoming an **Applied AI / Ba
 
 ## Structure
 
-### DSA (C++)
-- Arrays
-- Pointers
-- Vectors
-- HashMaps
-- Sets
-- Stack
-- Queue
-- Sliding Window
-
 ### Applied AI
 - Data Analysis (Pandas)
 - FastAPI APIs
@@ -39,7 +29,6 @@ This repository contains my daily progress towards becoming an **Applied AI / Ba
 
 ## Goal
 
-- 120+ DSA problems
 - Strong backend + AI portfolio
 - Internship by end of 2026
 
@@ -54,7 +43,6 @@ Check `daily-notes/` for daily progress.
 ## Tech Stack
 
 - Python
-- C++
 - FastAPI
 - Pandas
 - SQL / SQLite

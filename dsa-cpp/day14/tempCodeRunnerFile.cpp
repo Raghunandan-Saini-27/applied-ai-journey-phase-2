@@ -1,1 +1,0 @@
-cout<<prefix[i]<<endl;
